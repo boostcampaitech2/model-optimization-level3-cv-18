@@ -52,7 +52,7 @@ We use Github, Notion, WandB for our collaboration.
     - Output: Classification score <img src="https://render.githubusercontent.com/render/math?math=\large%20(%20F_1%20)" /> and Inference time <img src="https://render.githubusercontent.com/render/math?math=\large(t)" />.
         - Evaluation metric
         - <img src="https://render.githubusercontent.com/render/math?math=\large%20score%20=%200.5*score_{\text{submit%20time}}%20%2B%20score_{\text{F}_1}" />
-            - <img src="https://render.githubusercontent.com/render/math?math=\large%20score_{\text{submit%20time}}%20=%20frac{thismodel_{\text{submit%20time}}}{baseline_{\text{submit%20time}}}" />
+            - <img src="https://render.githubusercontent.com/render/math?math=\large%20score_{\text{submit%20time}}%20=%20\frac{thismodel_{\text{submit%20time}}}{baseline_{\text{submit%20time}}}" />
             - <img src="https://render.githubusercontent.com/render/math?math=score_{\text{F}_1}%20=%20\text{sigmoid}%20\big(20*(baseline_{\text{F}_1}%20-%20this%20model_{\text{F}_1})%20\big)" />
 - Model that we use.
     - Model: Pruned MobileNetV3
