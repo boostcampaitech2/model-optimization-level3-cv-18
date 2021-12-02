@@ -21,6 +21,7 @@ from tqdm import tqdm
 
 from src.utils.torch_utils import save_model
 
+import wandb
 
 def _get_n_data_from_dataloader(dataloader: DataLoader) -> int:
     """Get a number of data in dataloader.
@@ -98,7 +99,7 @@ class TorchTrainer:
             device: torch device
             verbose: verbosity level.
         """
-
+    
         self.model = model
         self.model_path = model_path
         self.criterion = criterion
@@ -107,7 +108,7 @@ class TorchTrainer:
         self.scaler = scaler
         self.verbose = verbose
         self.device = device
-
+        
     def train(
         self,
         train_dataloader: DataLoader,
@@ -124,6 +125,10 @@ class TorchTrainer:
         Returns:
             loss and accuracy
         """
+        
+        # # WandB watch
+        wandb.watch(self.model, log=all)
+        
         best_test_acc = -1.0
         best_test_f1 = -1.0
         num_classes = _get_len_label_from_dataset(train_dataloader.dataset)
@@ -134,6 +139,7 @@ class TorchTrainer:
             preds, gt = [], []
             pbar = tqdm(enumerate(train_dataloader), total=len(train_dataloader))
             self.model.train()
+
             for batch, (data, labels) in pbar:
                 data, labels = data.to(self.device), labels.to(self.device)
 
@@ -155,7 +161,7 @@ class TorchTrainer:
                     loss.backward()
                     self.optimizer.step()
                 self.scheduler.step()
-                
+
                 _, pred = torch.max(outputs, 1)
                 total += labels.size(0)
                 correct += (pred == labels).sum().item()
@@ -170,15 +176,25 @@ class TorchTrainer:
                     f"Acc: {(correct / total) * 100:.2f}% "
                     f"F1(macro): {f1_score(y_true=gt, y_pred=preds, labels=label_list, average='macro', zero_division=0):.2f}"
                 )
+                
             pbar.close()
-
-            _, test_f1, test_acc = self.test(
+            
+            test_loss, test_f1, test_acc = self.test(
                 model=self.model, test_dataloader=val_dataloader
             )
+            
+            # WandB logging for train
+            wandb.log({'Train/Loss':running_loss / len(train_dataloader), 'Train/Acc':correct / total, 'Train/F1(Macro)':f1_score(y_true=gt, y_pred=preds, labels=label_list, average="macro", zero_division=0), 
+                      }, step=epoch+1)
+            
+            # WandB logging for valid
+            wandb.log({'Valid/Loss':test_loss, 'Valid/Acc':test_acc, 'Valid/F1(Macro)':test_f1, }, step=epoch+1)
+            
             if best_test_f1 > test_f1:
                 continue
             best_test_acc = test_acc
             best_test_f1 = test_f1
+            
             print(f"Model saved. Current best test f1: {best_test_f1:.3f}")
             save_model(
                 model=self.model,
