@@ -49,11 +49,11 @@ We use Github, Notion, WandB for our collaboration.
 
 - I/O
     - Input: Cropped images from TACO dataset (COCO format)
-    - Output: Classification score <img src="https://render.githubusercontent.com/render/math?math=(F_1)"/> and Inference time <img src="https://render.githubusercontent.com/render/math?math=(t)"/>.
+    - Output: Classification score <img src="https://render.githubusercontent.com/render/math?math= ( F_1 ) "/> and Inference time <img src="https://render.githubusercontent.com/render/math?math= ( t ) "/>.
         - Evaluation metric
-        - <img src="https://render.githubusercontent.com/render/math?math=score = 0.5*score_{\text{submit time}}" /> + <img src="https://render.githubusercontent.com/render/math?math=score_{\text{F}_1}" />
-            - <img src="https://render.githubusercontent.com/render/math?math=score_{\text{submit time}}=\frac{thismodel_{\text{submit time}}}{baseline_{\text{submit time}}}}"/>
-            - <img src="https://render.githubusercontent.com/render/math?math=score_{\text{F}_1}=\text{sigmoid}\big(20*(baseline_{\text{F}_1} - this model_{\text{F}_1})\big)"/>
+        - <img src="https://render.githubusercontent.com/render/math?math=score = 0.5*score_{\text{submit time}} %2B score_{\text{F}_1}" />
+            - <img src="https://render.githubusercontent.com/render/math?math=score_{\text{submit time}} = \frac{ thismodel_{\text{submit time}} }{ baseline_{\text{submit time}}} }"/>
+            - <img src="https://render.githubusercontent.com/render/math?math=score_{\text{F}_1} = \text{sigmoid} \big(20*(baseline_{\text{F}_1} - this model_{\text{F}_1}) \big)"/>
 - Model that we use.
     - Model: Pruned MobileNetV3
 
