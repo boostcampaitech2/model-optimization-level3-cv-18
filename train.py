@@ -17,7 +17,7 @@ from src.dataloader import create_dataloader
 from src.loss import CustomCriterion
 from src.model import Model
 from src.trainer import TorchTrainer
-from src.utils.common import get_label_counts, read_yaml
+from src.utils.common import get_label_counts, read_yaml, seed_everything
 from src.utils.torch_utils import check_runtime, model_info
 
 
@@ -95,6 +95,7 @@ def train(
 
 
 if __name__ == "__main__":
+    seed_everything(21)
     parser = argparse.ArgumentParser(description="Train model.")
     parser.add_argument(
         "--model",
@@ -115,7 +116,7 @@ if __name__ == "__main__":
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     log_dir = os.environ.get("SM_MODEL_DIR", os.path.join("exp", 'latest'))
 
-    if os.path.exists(log_dir): 
+    if os.path.exists(log_dir):
         modified = datetime.fromtimestamp(os.path.getmtime(log_dir + '/best.pt'))
         new_log_dir = os.path.dirname(log_dir) + '/' + modified.strftime("%Y-%m-%d_%H-%M-%S")
         os.rename(log_dir, new_log_dir)
