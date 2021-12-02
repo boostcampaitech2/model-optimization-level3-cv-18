@@ -8,6 +8,7 @@ import torch.nn as nn
 import torch.optim as optim
 from src.dataloader import create_dataloader
 from src.model import Model
+from src.utils.common import seed_everything
 from src.utils.torch_utils import model_info, check_runtime
 from src.trainer import TorchTrainer, count_model_params
 from typing import Any, Dict, List, Tuple
@@ -495,6 +496,7 @@ def tune(gpu_id, storage: str = None):
 
 
 if __name__ == "__main__":
+    seed_everything(21)
     parser = argparse.ArgumentParser(description="Optuna tuner.")
     parser.add_argument("--gpu", default=0, type=int, help="GPU id to use")
     parser.add_argument("--storage", default="", type=str, help="Optuna database storage path.")
