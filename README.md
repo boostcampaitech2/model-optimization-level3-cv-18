@@ -51,9 +51,9 @@ We use Github, Notion, WandB for our collaboration.
     - Input: Cropped images from TACO dataset (COCO format)
     - Output: Classification score$(F_1)$ and Inference time$(t)$.
         - Evaluation metric
-        - <img src="https://latex.codecogs.com/gif.latex?score = 0.5*score_{\text{submit time}} + score_{\text{F}_1}/>
-            - <img src="https://latex.codecogs.com/gif.latex?score_{\text{submit time}}=\frac{thismodel_{\text{submit time}}}{baseline_{\text{submit time}}}}/>
-            - <img src="https://latex.codecogs.com/gif.latex?score_{\text{F}_1}=\text{sigmoid}\big(20*(baseline_{\text{F}_1} - this model_{\text{F}_1})\big)/>
+        - <img src="https://latex.codecogs.com/gif.latex?score = 0.5*score_{\text{submit time}} + score_{\text{F}_1}"/>
+            - <img src="https://latex.codecogs.com/gif.latex?score_{\text{submit time}}=\frac{thismodel_{\text{submit time}}}{baseline_{\text{submit time}}}}"/>
+            - <img src="https://latex.codecogs.com/gif.latex?score_{\text{F}_1}=\text{sigmoid}\big(20*(baseline_{\text{F}_1} - this model_{\text{F}_1})\big)"/>
 - Model that we use.
     - Model: Pruned MobileNetV3
 
@@ -65,7 +65,7 @@ We often seek ways to maintain or improve model performance while facing certain
 
 ## 3.1. Problem Definition
 
-![Untitled](README%20d9bae3cb3f19404cafeb69baec86761a/Untitled.png)
+![LB-result](https://user-images.githubusercontent.com/87659486/144399995-bcb93cae-97ae-4b20-bf65-6d81f599b9bd.png)
 
 The figure above represents the target value. F1-Score should be 0.7 or more and Time Score should be within 60.
 
