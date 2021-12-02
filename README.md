@@ -51,9 +51,9 @@ We use Github, Notion, WandB for our collaboration.
     - Input: Cropped images from TACO dataset (COCO format)
     - Output: Classification score$(F_1)$ and Inference time$(t)$.
         - Evaluation metric
-        - <img src="https://latex.codecogs.com/gif.latex?score = 0.5*score_{\text{submit time}} + score_{\text{F}_1}"/>
-            - <img src="https://latex.codecogs.com/gif.latex?score_{\text{submit time}}=\frac{thismodel_{\text{submit time}}}{baseline_{\text{submit time}}}}"/>
-            - <img src="https://latex.codecogs.com/gif.latex?score_{\text{F}_1}=\text{sigmoid}\big(20*(baseline_{\text{F}_1} - this model_{\text{F}_1})\big)"/>
+        - <img src="https://render.githubusercontent.com/render/math?math=score = 0.5*score_{\text{submit time}} + score_{\text{F}_1}"/>
+            - <img src="https://render.githubusercontent.com/render/math?math=score_{\text{submit time}}=\frac{thismodel_{\text{submit time}}}{baseline_{\text{submit time}}}}"/>
+            - <img src="https://render.githubusercontent.com/render/math?math=score_{\text{F}_1}=\text{sigmoid}\big(20*(baseline_{\text{F}_1} - this model_{\text{F}_1})\big)"/>
 - Model that we use.
     - Model: Pruned MobileNetV3
 
