@@ -7,6 +7,8 @@ import argparse
 import os
 from datetime import datetime
 from typing import Any, Dict, Tuple, Union
+import numpy as np
+import random
 
 import torch
 import torch.nn as nn
@@ -17,9 +19,22 @@ from src.dataloader import create_dataloader
 from src.loss import CustomCriterion
 from src.model import Model
 from src.trainer import TorchTrainer
-from src.utils.common import get_label_counts, read_yaml, seed_everything
+from src.utils.common import get_label_counts, read_yaml
 from src.utils.torch_utils import check_runtime, model_info
 
+import wandb
+import pprint
+
+def seed_everything(seed):
+    np.random.seed(seed)
+    random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)  # 멀티 GPU 사용 시
+    torch.backends.cudnn.deterministic = True  
+    torch.backends.cudnn.benchmark = False  
+    torch.backends.cudnn.enabled = False
+    os.environ["PYTHONHASHSEED"] = str(seed)
 
 def train(
     model_config: Dict[str, Any],
@@ -95,7 +110,7 @@ def train(
 
 
 if __name__ == "__main__":
-    seed_everything(21)
+    
     parser = argparse.ArgumentParser(description="Train model.")
     parser.add_argument(
         "--model",
@@ -106,6 +121,15 @@ if __name__ == "__main__":
     parser.add_argument(
         "--data", default="configs/data/taco.yaml", type=str, help="data config"
     )
+
+    parser.add_argument(
+        "--dir", default="exp", type=str, help="data config"
+    )
+    
+    parser.add_argument(
+        "--wnb_prep", default="#", type=str, help="data config"
+    )
+    
     args = parser.parse_args()
 
     model_config = read_yaml(cfg=args.model)
@@ -114,15 +138,39 @@ if __name__ == "__main__":
     data_config["DATA_PATH"] = os.environ.get("SM_CHANNEL_TRAIN", data_config["DATA_PATH"])
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    log_dir = os.environ.get("SM_MODEL_DIR", os.path.join("exp", 'latest'))
+    log_dir = os.environ.get("SM_MODEL_DIR", os.path.join(args.dir, 'latest'))
 
-    if os.path.exists(log_dir):
+    if os.path.exists(log_dir): 
         modified = datetime.fromtimestamp(os.path.getmtime(log_dir + '/best.pt'))
         new_log_dir = os.path.dirname(log_dir) + '/' + modified.strftime("%Y-%m-%d_%H-%M-%S")
         os.rename(log_dir, new_log_dir)
 
     os.makedirs(log_dir, exist_ok=True)
-
+    
+    seed_everything(data_config["SEED"])
+        
+    # wandb login and init
+    wandb_name = ('#'+args.wnb_prep+'-ep:'+str(data_config["EPOCHS"])+'-bs:'+str(data_config["BATCH_SIZE"])+'-lr:'+str(data_config["INIT_LR"])+'-im:'+str(data_config["IMG_SIZE"])+
+                  '-val:'+str(data_config["VAL_RATIO"])+'-FP16:'+str(data_config["FP16"]))
+    print('WNB name :',wandb_name)
+    wandb.login()
+    wandb.init(entity = data_config["WNB_ENTITY"], # 팀 지정
+               project = data_config["WNB_PROJECT"], # 폴더 지정 
+               name = wandb_name
+              )
+    
+    # for wandb logging
+    print('='*70)
+    print('Model config')
+    print('='*70)
+    pprint.pprint(model_config)
+    print('='*70)
+    
+    print('\nData config')
+    print('='*70)
+    pprint.pprint(data_config)
+    print('='*70)
+    
     test_loss, test_f1, test_acc = train(
         model_config=model_config,
         data_config=data_config,
@@ -130,4 +178,3 @@ if __name__ == "__main__":
         fp16=data_config["FP16"],
         device=device,
     )
-
