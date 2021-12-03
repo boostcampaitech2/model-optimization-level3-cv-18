@@ -5,6 +5,8 @@ from src.modules.bottleneck import Bottleneck, BottleneckGenerator
 from src.modules.conv import Conv, ConvGenerator, FixedConvGenerator
 from src.modules.dwconv import DWConv, DWConvGenerator
 from src.modules.flatten import FlattenGenerator
+from src.modules.invertedresidual import (InvertedResidual,
+                                          InvertedResidualGenerator)
 from src.modules.invertedresidualv2 import (InvertedResidualv2,
                                             InvertedResidualv2Generator)
 from src.modules.invertedresidualv3 import (InvertedResidualv3,
@@ -24,11 +26,11 @@ __all__ = [
     "DWConv",
     "Linear",
     "GlobalAvgPool",
+    "InvertedResidual",
     "InvertedResidualv2",
     "InvertedResidualv3",
     "Fire",
     "Dropout",
-    
     "BottleneckGenerator",
     "FixedConvGenerator",
     "ConvGenerator",
@@ -38,6 +40,7 @@ __all__ = [
     "MaxPoolGenerator",
     "AvgPoolGenerator",
     "GlobalAvgPoolGenerator",
+    "InvertedResidualGenerator",
     "InvertedResidualv2Generator",
     "InvertedResidualv3Generator",
     "FireGenerator"
