@@ -34,7 +34,7 @@ def search_hyperparam(trial: optuna.trial.Trial) -> Dict[str, Any]:
         "BATCH_SIZE": batch_size,
     }
 
-
+ 
 def search_model(trial: optuna.trial.Trial) -> List[Any]:
     """Search model structure from user-specified search space."""
     model = []
