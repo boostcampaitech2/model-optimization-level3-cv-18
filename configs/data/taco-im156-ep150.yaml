@@ -1,0 +1,58 @@
+# Information for params
+# DATA_PATH: The name of the folder of dataset
+# DATASET: The name of the dataset
+# AUG_TRAIN: Which policy to use for train. Check src/augmentation/policies.py
+# AUG_TEST: Which policy to use for test. Check src/augmentation/policies.py
+# AUG_TRAIN_PARAMS: null if AUG_TRAIN does not contain "randaugment" else need (n_select, level, n_level)
+#   n_select: The number of random augmentations you want to apply
+#   level: The magnitude of augmentation (how strong), if you set level to null, it will choose randomly
+#   n_level: level will be choosen between 0, n_level, and the magnitude will be (level / n_level)
+# AUG_TEST_PARAMS: Always set to null
+# BATCH_SIZE: Batch size for training
+# VAL_RATIO:  How many data to be used for validation checking
+# SEED : Fix seed for Reproduction
+
+# 데이터셋이 위치한 경로
+DATA_PATH: "/opt/ml/data/" 
+
+# 데이터셋의 이름
+DATASET: "TACO" 
+
+# 이미지를 224x224 로 리사이징 합니다. 필요에 따라 조정이 가능
+IMG_SIZE: 156 
+
+# 학습셋에 대한 Augmentation 정책
+# AUG_TRAIN: "simple_augment_train"
+AUG_TRAIN: "randaugment_train" 
+
+# Validation셋에 대한 Augmentation 정책
+AUG_TEST: "simple_augment_test" 
+
+# 학습셋에서 사용하는 Augmentation 정책의 파라미터
+AUG_TRAIN_PARAMS: 
+ n_select: 2 # 동시에 몇 개의 Augmentation 이 적용될지를 선택
+ level: null # Augmentation의 강도를 설정 (null 일 경우 기본 값을 사용)
+ 
+# Validation셋에서 사용하는 Augmentation 정책의 파라미터(null 일 경우 기본 값을 사용)
+AUG_TEST_PARAMS: null  
+
+# Batch size
+BATCH_SIZE: 64 
+
+# 학습 총 epochs 를 설정
+EPOCHS: 150 
+
+# 학습셋 안에서 Validation의 비율을 조정
+VAL_RATIO: 0.1 
+
+# Max lr
+INIT_LR: 0.1
+
+FP16: True
+
+# Seed
+SEED: 2021
+
+# WandB
+WNB_ENTITY: "ai_tech_level2-cv-18"
+WNB_PROJECT: "sohn_T2113"
