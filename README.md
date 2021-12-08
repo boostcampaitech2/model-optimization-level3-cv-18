@@ -44,7 +44,7 @@ V100 GPU (32GB)
 
 ## 2.2. Collaboration Tools
 
-*[Github](https://github.com/orgs/boostcampaitech2/teams/level3-cv-18), [Notion](https://www.notion.so/Model-Optimization-0b190358ea7845f7ae119201cc3b33f6)*,  WandB
+Github, Notion,  WandB
 
 ## 2.3. Structure
 
@@ -81,8 +81,8 @@ MobileNetV3 Tuning
 
 - Apply RandAugment (n_level=2) in all experiments.
 
-	| No. | # of Layers | Parameters | Image Size | Epoch | Score | F1 score | Time |
-	| --- | --- | --- | --- | --- | --- | --- | --- |
+	| No. | Nums of Layers | Parameters | Image Size | Epoch | Score | F1 score | Time |
+	| :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
 	| 1 | 179 | 2,127,374 | 224 | 100 | `1.5460` | `0.6880` | `84.9850` |
 	| 2 | 163 | 1,741,254 | 224 | 100 | `1.7950` | `0.6530` | `92.9260` |
 	| 3 | 79 | 294,854 | 156 | 100 | `1.2950` | `0.6870` | `63.0780` |
@@ -95,7 +95,7 @@ MobileNetV3 Tuning
 ## 4.1. Final Model
 
 | Key | Value | Remarks |
-| --- | --- | --- |
+| --- | --- | :-: |
 | Backbone  | MobileNetV3 | **[1]** |
 | Optimizer  | SGD |  |
 | Init Learning Rate | 0.1 |  |
@@ -117,16 +117,16 @@ We achieved the target performance level on both Public and Private Leaderboards
 - **The final submitted model :** the best performing model on Public LB.
 
 	|  | Target LB | Public LB | Private LB  |
-	| --- | --- | --- | --- |
-	| Score | 1.1950 | 1.1676 | 1.1804 |
-	|  F1 Score | 0.7000 | 0.7012 | 0.6986 |
-	| Time   | 60.0000 | 58.1225 | 58.1225 |
+	| --- | :-: | :-: | :-: |
+	| Score | `1.1950` | `1.1676` | `1.1804` |
+	|  F1 Score | `0.7000` | `0.7012` | `0.6986` |
+	| Time   | `60.0000` | `58.1225` | `58.1225` |
 
 
 # 5️⃣ Participants
 
 | Name | Github | Role |
-| --- | --- | --- |
+| :-: | :-: | --- |
 | 김서기 (T2035) | [link](https://github.com/seogi98) | Model experiment(MobileNetV3) |
 | 김승훈 (T2042) | [link](https://github.com/lead-me-read-me) | Model experiment(MobileNetV3) |
 | 배민한 (T2260) | [link](https://github.com/Minhan-Bae) | Model experiment(MobileNetV3) |
