@@ -133,3 +133,6 @@ We achieved the target performance level on both Public and Private Leaderboards
 | 손지아 (T2113) | [link](https://github.com/oikosohn) | Model experiment(MobileNetV3, ShuffleNetV2), Set the WandB log |
 | 이상은 (T2157) | [link](https://github.com/lisy0123) | Model experiment(MobileNetV3) |
 | 조익수 (T2213) | [link](https://github.com/projectcybersyn2) | Model experiment(MobileNetV3) |
+
+# 6️⃣ Reference
+Our basic structure is based on Kindle(by JeiKeiLim)
