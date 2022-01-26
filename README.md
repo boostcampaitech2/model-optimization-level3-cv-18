@@ -138,7 +138,7 @@ We achieved the target performance level on both Public and Private Leaderboards
 # 6️⃣ Prototyping
 
 Prototyping with Streamlit and FastAPI
-- https://github.com/oikosohn/lightweight-waste-classifier
+- link : https://github.com/oikosohn/lightweight-waste-classifier
 
 
 # 7️⃣ Reference
